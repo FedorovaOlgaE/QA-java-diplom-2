@@ -6,6 +6,7 @@ public class UserData {
         this.email = email;
         this.password = password;
     }
+
     public static UserData from(User user) {
         return new UserData(user.email, user.password);
     }

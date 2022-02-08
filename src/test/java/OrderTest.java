@@ -1,17 +1,26 @@
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 
-
-public class OrderTest {
+public class OrderTest extends RestAssuredClient {
     private UserClient userClient;
     private OrderClient orderClient;
     private IngredientsClient ingredientClient;
     private User user;
+    public String accessToken;
+
+    public String getAccessToken() {
+        {
+            return accessToken;
+        }
+    }
+
 
     @Before
     public void setUp() {
@@ -20,6 +29,22 @@ public class OrderTest {
         ingredientClient = new IngredientsClient();
         user = User.getRandom();
     }
+
+    @After
+    public void delete() {
+        if (getAccessToken() == null) {
+            return;
+        }
+        given()
+                .spec(getBaseSpec())
+                .auth().oauth2(getAccessToken().substring(7))
+                .when()
+                .delete("auth/user")
+                .then()
+                .statusCode(202);
+    }
+
+
     @Test
     @DisplayName("Create Order With Authorized User")
     public void createOrderWithAuthorizedUserTest() {
@@ -32,6 +57,7 @@ public class OrderTest {
                 .and()
                 .statusCode(200);
     }
+
     //при выполнении теста ниже всегда баг
     @Test
     @DisplayName("Create Order without Authorized User")

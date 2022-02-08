@@ -17,4 +17,5 @@ public class User {
         final String password = RandomStringUtils.randomAlphabetic(10);
         final String name = RandomStringUtils.randomAlphabetic(10);
         return new User(email, password, name);
-}}
+    }
+}

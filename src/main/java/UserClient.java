@@ -8,47 +8,47 @@ public class UserClient extends RestAssuredClient {
     public final static String API_URL = "/auth/";
 
     @Step("Create User")
-    public Response createUser(User user){
+    public Response createUser(User user) {
         return given()
                 .spec(getBaseSpec())
                 .body(user)
                 .when()
-                .post(API_URL+"register/");
+                .post(API_URL + "register/");
 
     }
 
     @Step("Create User Without Email")
-    public Response createUserWithOutEmail(User user){
+    public Response createUserWithOutEmail(User user) {
         String body = "{\"password\":\"" + user.password + "\","
                 + "\"name\":\"" + user.name + "\"}";
 
-        return  given()
+        return given()
                 .spec(getBaseSpec())
                 .body(body)
                 .when()
-                .post(API_URL+"register/");
+                .post(API_URL + "register/");
     }
 
     @Step("Create User Without Password")
-    public Response createUserWithOutPassword(User user){
+    public Response createUserWithOutPassword(User user) {
         String body = "{\"email\":\"" + user.email + "\","
                 + "\"name\":\"" + user.name + "\"}";
         return given()
                 .spec(getBaseSpec())
                 .body(body)
                 .when()
-                .post(API_URL+"register/");
+                .post(API_URL + "register/");
     }
 
     @Step("Create WithOut Name")
-    public Response createUserWithOutName(User user){
+    public Response createUserWithOutName(User user) {
         String body = "{\"email\":\"" + user.email + "\","
                 + "\"password\":\"" + user.password + "\"}";
         return given()
                 .spec(getBaseSpec())
                 .body(body)
                 .when()
-                .post(API_URL+"register/");
+                .post(API_URL + "register/");
     }
 
     @Step("User Authorization")
@@ -57,7 +57,7 @@ public class UserClient extends RestAssuredClient {
                 .spec(getBaseSpec())
                 .body(userData)
                 .when()
-                .post(API_URL+"login/");
+                .post(API_URL + "login/");
     }
 
     @Step("User Authorization With Incorrect Email And Password")
@@ -66,7 +66,7 @@ public class UserClient extends RestAssuredClient {
                 .spec(getBaseSpec())
                 .body(userData)
                 .when()
-                .post(API_URL+"login/");
+                .post(API_URL + "login/");
     }
 
     @Step("Get User Access Token")
@@ -84,12 +84,12 @@ public class UserClient extends RestAssuredClient {
     }
 
     @Step("Registration And Get Access Token")
-    public String registrationAndGetAccessToken(User user){
+    public String registrationAndGetAccessToken(User user) {
         return given()
                 .spec(getBaseSpec())
                 .body(user)
                 .when()
-                .post(API_URL+"register/")
+                .post(API_URL + "register/")
                 .then()
                 .extract()
                 .path("accessToken")

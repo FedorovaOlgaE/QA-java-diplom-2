@@ -5,7 +5,7 @@ import io.restassured.specification.RequestSpecification;
 
 
 public class RestAssuredClient {
-    public static RequestSpecification getBaseSpec(){
+    public static RequestSpecification getBaseSpec() {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setBaseUri("https://stellarburgers.nomoreparties.site/api")
